@@ -81,17 +81,18 @@ def initialize_table():
         conn.close()
 
 
-def insert_scheduled_task(command):
+def insert_scheduled_task(task, command):
     """
     Insert a new scheduled task into execution history with status "Scheduled".
 
+    :param task: Task Name
     :param command: The command to be executed.
     :return: The ID of the inserted row.
     """
     conn = dml_pool.getconn()
     cursor = conn.cursor()
     try:
-        cursor.execute(read_sql_file('insert_scheduled_task.sql'), (command,))
+        cursor.execute(read_sql_file('insert_scheduled_task.sql'), (task, command,))
         conn.commit()
         return cursor.fetchone()[0]
     except Exception as e:

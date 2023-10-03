@@ -1,14 +1,17 @@
 [
     {
-        "command": "echo Execution Completed",
-        "cron": "*/5 * * * *"
+        "name": "Task1",
+        "command": "echo Execution Completed - 1",
+        "cron": "*/1 * * * *"
     },
     {
-        "command": "/path/to/your/second_script.sh",
-        "cron": "0 12 * * *"
+        "name": "Task2",
+        "command": "echo Execution Completed - 2",
+        "cron": "*/2 * * * *"
     },
     {
-        "command": "/path/to/your/third_script.sh",
-        "cron": "30 18 * * 1-5"
+        "name": "Task3",
+        "command": "echo Execution Completed - 3",
+        "cron": "*/3 * * * *"
     }
 ]

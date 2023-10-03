@@ -1,30 +1,20 @@
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:10:00.001646", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:15:00.001238", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:20:00.001397", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:25:00.001497", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:30:00.001396", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:35:00.001388", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:40:00.001329", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:45:00.001556", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:50:00.001318", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T21:55:00.001409", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:00:00.001358", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:05:00.001584", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:10:00.001444", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:15:00.001359", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:20:00.001461", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:25:00.001360", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:30:00.001455", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:35:00.001460", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:40:00.001470", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:45:00.001397", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:50:00.001439", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T22:55:00.001393", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:00:00.001314", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:05:00.001366", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:10:00.001459", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:15:00.001503", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:20:00.001247", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:25:00.001299", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:30:00.001500", "status": "Success", "logs": null},
-{"command": "echo Execution Completed", "execution_time": "2023-10-03T23:35:00.001537", "status": "Success", "logs": null}
+[
+    {
+        "name": "Task1",
+        "command": "echo Execution Completed - 1",
+        "execution_time": "2023-10-04T00:13:00.005812",
+        "status": "Success"
+    },
+    {
+        "name": "Task2",
+        "command": "echo Execution Completed - 2",
+        "execution_time": "2023-10-04T00:14:00.005084",
+        "status": "Success"
+    },
+    {
+        "name": "Task1",
+        "command": "echo Execution Completed - 1",
+        "execution_time": "2023-10-04T00:14:00.008185",
+        "status": "Success"
+    }
+]

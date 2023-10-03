@@ -29,41 +29,51 @@ except FileNotFoundError:
 scheduler = BlockingScheduler()
 
 
-def execute_task(command):
+def execute_task(exec_task):
     """
-    Execute the given command, update the database with the execution status if DB_ENABLED is set,
-    and always append the execution details to the JSON file.
+    Execute the given command and always append the execution details to the JSON file.
 
-    :param command: The command to be executed.
+    :param exec_task: The task dictionary containing name, command, and cron schedule.
     """
+    command = exec_task["command"]
     status = "Success"
-    logs = None
 
     try:
         os.system(command)
     except Exception as e:
         logger.error(f"Failed to execute task {command}: {e}")
         status = "Fail"
-        logs = str(e)
 
     # Append to the JSON file
     execution_detail = {
+        "name": exec_task["name"],
         "command": command,
         "execution_time": datetime.datetime.now().isoformat(),
-        "status": status,
-        "logs": logs
+        "status": status
     }
-    with open('execution_history.json', 'a+') as exec_file:
-        exec_file.seek(0)
-        data = exec_file.read(100)
-        if len(data) > 0:
-            exec_file.write(",\n")
-        json.dump(execution_detail, exec_file)
+
+    # Read the existing data
+    data = []
+    try:
+        with open('execution_history.json', 'r') as exec_file:
+            data = json.load(exec_file)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        logger.warning(f"Error reading execution_history.json: {e}. Initializing a new list.")
+
+    # Append the new entry
+    data.append(execution_detail)
+
+    # Write the updated data back to the file
+    try:
+        with open('execution_history.json', 'w') as exec_file:
+            json.dump(data, exec_file, indent=4)
+    except Exception as e:
+        logger.error(f"Failed to write to execution_history.json: {e}")
 
     # If DB_ENABLED is set, update the database
     if db_enabled:
-        task_id = db_ops.insert_scheduled_task(command)
-        db_ops.update_execution_status(task_id, status, logs)
+        task_id = db_ops.insert_scheduled_task(exec_task["name"], command)
+        db_ops.update_execution_status(task_id, status)
 
     # Rollover after appending to the JSON file
     rollover_execution_history()
@@ -103,7 +113,8 @@ def rollover_execution_history():
 # Schedule tasks based on the configuration
 for task in tasks:
     trigger = CronTrigger.from_crontab(task["cron"])
-    scheduler.add_job(execute_task, trigger=trigger, args=[task["command"]])
+    scheduler.add_job(execute_task, trigger=trigger, args=[task])
+
 
 if __name__ == "__main__":
     try:
