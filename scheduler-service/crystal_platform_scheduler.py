@@ -29,13 +29,15 @@ except FileNotFoundError:
 scheduler = BlockingScheduler()
 
 
-def execute_task(exec_task):
+from filelock import FileLock
+
+def execute_task(task):
     """
     Execute the given command and always append the execution details to the JSON file.
 
-    :param exec_task: The task dictionary containing name, command, and cron schedule.
+    :param task: The task dictionary containing name, command, and cron schedule.
     """
-    command = exec_task["command"]
+    command = task["command"]
     status = "Success"
 
     try:
@@ -46,37 +48,35 @@ def execute_task(exec_task):
 
     # Append to the JSON file
     execution_detail = {
-        "name": exec_task["name"],
+        "name": task["name"],
         "command": command,
         "execution_time": datetime.datetime.now().isoformat(),
         "status": status
     }
 
-    # Read the existing data
-    data = []
-    try:
+    lock = FileLock("execution_history.json.lock")
+
+    with lock:
+        # Read the existing data
         with open('execution_history.json', 'r') as exec_file:
-            data = json.load(exec_file)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        logger.warning(f"Error reading execution_history.json: {e}. Initializing a new list.")
+            file_content = exec_file.read()
+            data = json.loads(file_content) if file_content else []
 
-    # Append the new entry
-    data.append(execution_detail)
+        # Append the new entry
+        data.append(execution_detail)
 
-    # Write the updated data back to the file
-    try:
+        # Write the updated data back to the file
         with open('execution_history.json', 'w') as exec_file:
             json.dump(data, exec_file, indent=4)
-    except Exception as e:
-        logger.error(f"Failed to write to execution_history.json: {e}")
 
     # If DB_ENABLED is set, update the database
     if db_enabled:
-        task_id = db_ops.insert_scheduled_task(exec_task["name"], command)
+        task_id = db_ops.insert_scheduled_task(task["name"], command)
         db_ops.update_execution_status(task_id, status)
 
     # Rollover after appending to the JSON file
     rollover_execution_history()
+
 
 
 def write_execution_history_to_json():
