@@ -1,1 +1,3 @@
-UPDATE execution_history SET status = %s, logs = %s, update_time = CURRENT_TIMESTAMP WHERE id = %s;
+UPDATE execution_history
+SET status = %s
+WHERE id = %s;

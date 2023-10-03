@@ -1,1 +1,4 @@
-INSERT INTO execution_history (name, command, status) VALUES (%s, %s, 'Scheduled') RETURNING id;
+INSERT INTO execution_history (name, command, execution_time, status)
+VALUES (%s, %s, NOW(), 'Scheduled')
+RETURNING id;
+

@@ -7,6 +7,8 @@ from apscheduler.triggers.cron import CronTrigger
 import modules.database_operations as db_ops
 from globals import logger
 
+from filelock import FileLock
+
 # Read environment from SERVERENV environment variable
 env = os.environ.get('SERVERENV')
 if not env:
@@ -29,15 +31,13 @@ except FileNotFoundError:
 scheduler = BlockingScheduler()
 
 
-from filelock import FileLock
-
-def execute_task(task):
+def execute_task(exc_task):
     """
     Execute the given command and always append the execution details to the JSON file.
 
-    :param task: The task dictionary containing name, command, and cron schedule.
+    :param exc_task: The task dictionary containing name, command, and cron schedule.
     """
-    command = task["command"]
+    command = exc_task["command"]
     status = "Success"
 
     try:
@@ -48,7 +48,7 @@ def execute_task(task):
 
     # Append to the JSON file
     execution_detail = {
-        "name": task["name"],
+        "name": exc_task["name"],
         "command": command,
         "execution_time": datetime.datetime.now().isoformat(),
         "status": status
@@ -71,12 +71,11 @@ def execute_task(task):
 
     # If DB_ENABLED is set, update the database
     if db_enabled:
-        task_id = db_ops.insert_scheduled_task(task["name"], command)
+        task_id = db_ops.insert_scheduled_task(exc_task["name"], command)
         db_ops.update_execution_status(task_id, status)
 
     # Rollover after appending to the JSON file
     rollover_execution_history()
-
 
 
 def write_execution_history_to_json():
@@ -114,7 +113,6 @@ def rollover_execution_history():
 for task in tasks:
     trigger = CronTrigger.from_crontab(task["cron"])
     scheduler.add_job(execute_task, trigger=trigger, args=[task])
-
 
 if __name__ == "__main__":
     try:

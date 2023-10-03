@@ -10,7 +10,7 @@ db_enabled = os.environ.get('DB_ENABLED', 'False').lower() == 'true'
 
 if db_enabled:
     # Load database configuration from JSON file
-    config_path = os.path.join('../../config', env, 'database_config.json')
+    config_path = os.path.join('config', env, 'database_config.json')
     try:
         with open(config_path, 'r') as file:
             db_config = json.load(file)
@@ -102,24 +102,24 @@ def insert_scheduled_task(task, command):
         dml_pool.putconn(conn)
 
 
-def update_execution_status(task_id, status, logs=None):
+def update_execution_status(task_id, status):
     """
-    Update the status and logs of a task in execution history.
+    Update the status of a task in execution history.
 
     :param task_id: The ID of the task to be updated.
     :param status: The new status of the task.
-    :param logs: Any relevant logs or error messages (optional).
     """
     conn = dml_pool.getconn()
     cursor = conn.cursor()
     try:
-        cursor.execute(read_sql_file('update_execution_status.sql'), (status, logs, task_id))
+        cursor.execute(read_sql_file('update_execution_status.sql'), (status, task_id))
         conn.commit()
     except Exception as e:
         logger.error(f"Failed to update execution status: {e}")
     finally:
         cursor.close()
         dml_pool.putconn(conn)
+
 
 
 def fetch_execution_history():
