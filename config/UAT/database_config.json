@@ -1,0 +1,7 @@
+{
+    "server": "your_host",
+    "port": "5432",
+    "database": "your_dbname",
+    "ddl_user": "ddl_username",
+    "dml_user": "dml_username"
+}

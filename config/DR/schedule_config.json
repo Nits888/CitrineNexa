@@ -1,0 +1,14 @@
+[
+    {
+        "command": "echo Execution Completed",
+        "cron": "*/5 * * * *"
+    },
+    {
+        "command": "/path/to/your/second_script.sh",
+        "cron": "0 12 * * *"
+    },
+    {
+        "command": "/path/to/your/third_script.sh",
+        "cron": "30 18 * * 1-5"
+    }
+]

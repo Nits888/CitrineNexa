@@ -1,0 +1,1 @@
+INSERT INTO execution_history (command, status) VALUES (%s, 'Scheduled') RETURNING id;

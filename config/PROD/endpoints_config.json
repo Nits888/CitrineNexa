@@ -1,0 +1,16 @@
+{
+    "endpoints": [
+        {
+            "app_name": "App1",
+            "url": "https://example1.com"
+        },
+        {
+            "app_name": "App2",
+            "url": "https://example2.com"
+        },
+        {
+            "app_name": "App3",
+            "url": "https://example3.com"
+        }
+    ]
+}
