@@ -4,7 +4,7 @@ import ssl
 import socket
 from datetime import datetime
 
-from globals import env
+from globals import env, RESULTS_FILE
 
 
 def fetch_cert_details(domain):
@@ -52,11 +52,16 @@ def generate_rag_status(expiry_date):
 
 
 def main():
-    config_path = os.path.join('config', env, 'endpoints_config.json')
+    config_path = os.path.join('../config', env, 'endpoints_config.json')
     with open(config_path, 'r') as file:
         config = json.load(file)
 
-    cert_details = []
+    existing_cert_details = {}  # Initialize as an empty dictionary
+
+    # Check if the results file already exists
+    if os.path.exists(RESULTS_FILE):
+        with open(RESULTS_FILE, 'r') as result_file:
+            existing_cert_details = json.load(result_file)
 
     for entry in config['endpoints']:
         app_name = entry['app_name']
@@ -66,16 +71,30 @@ def main():
         expiry_date = determine_expiry(cert)
         rag_status = generate_rag_status(expiry_date)
 
-        cert_details.append({
-            "app_name": app_name,
-            "endpoint": endpoint,
-            "issuer": cert['issuer'],
-            "expiry_date": expiry_date.strftime('%Y-%m-%d'),
-            "RAG_status": rag_status
-        })
+        existing_entry = existing_cert_details.get(app_name, {}).get(endpoint)
 
-    with open('certificates_status.json', 'w') as file:
-        json.dump(cert_details, file, indent=4)
+        if existing_entry:
+            # Update existing entry if there are changes
+            if (existing_entry['issuer'] != cert['issuer'] or
+                    existing_entry['expiry_date'] != expiry_date.strftime('%Y-%m-%d') or
+                    existing_entry['RAG_status'] != rag_status):
+                existing_entry.update({
+                    "issuer": cert['issuer'],
+                    "expiry_date": expiry_date.strftime('%Y-%m-%d'),
+                    "RAG_status": rag_status
+                })
+        else:
+            # Create a new entry
+            if app_name not in existing_cert_details:
+                existing_cert_details[app_name] = {}
+            existing_cert_details[app_name][endpoint] = {
+                "issuer": cert['issuer'],
+                "expiry_date": expiry_date.strftime('%Y-%m-%d'),
+                "RAG_status": rag_status
+            }
+
+    with open(RESULTS_FILE, 'w') as file:
+        json.dump(existing_cert_details, file, indent=4)
 
 
 if __name__ == "__main__":

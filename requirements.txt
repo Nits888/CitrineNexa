@@ -2,3 +2,4 @@ schedule
 psycopg2-binary
 apscheduler
 filelock
+flask

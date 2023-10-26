@@ -2,15 +2,23 @@
     "endpoints": [
         {
             "app_name": "App1",
-            "url": "https://example1.com"
+            "url": "https://www.google.com"
         },
         {
             "app_name": "App2",
-            "url": "https://example2.com"
+            "url": "https://www.facebook.com"
         },
         {
             "app_name": "App3",
-            "url": "https://example3.com"
+            "url": "https://www.bing.com"
+        },
+        {
+            "app_name": "App4",
+            "url": "https://music.amazon.in"
+        },
+        {
+            "app_name": "App5",
+            "url": "https://www.amazon.in"
         }
     ]
 }

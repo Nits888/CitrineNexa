@@ -1,0 +1,138 @@
+{
+    "App1": {
+        "https://www.google.com": {
+            "issuer": [
+                [
+                    [
+                        "countryName",
+                        "US"
+                    ]
+                ],
+                [
+                    [
+                        "organizationName",
+                        "Google Trust Services LLC"
+                    ]
+                ],
+                [
+                    [
+                        "commonName",
+                        "GTS CA 1C3"
+                    ]
+                ]
+            ],
+            "expiry_date": "2023-12-21",
+            "RAG_status": "Green"
+        }
+    },
+    "App2": {
+        "https://www.facebook.com": {
+            "issuer": [
+                [
+                    [
+                        "countryName",
+                        "US"
+                    ]
+                ],
+                [
+                    [
+                        "organizationName",
+                        "DigiCert Inc"
+                    ]
+                ],
+                [
+                    [
+                        "organizationalUnitName",
+                        "www.digicert.com"
+                    ]
+                ],
+                [
+                    [
+                        "commonName",
+                        "DigiCert SHA2 High Assurance Server CA"
+                    ]
+                ]
+            ],
+            "expiry_date": "2023-11-02",
+            "RAG_status": "Red"
+        }
+    },
+    "App3": {
+        "https://www.bing.com": {
+            "issuer": [
+                [
+                    [
+                        "countryName",
+                        "US"
+                    ]
+                ],
+                [
+                    [
+                        "organizationName",
+                        "Microsoft Corporation"
+                    ]
+                ],
+                [
+                    [
+                        "commonName",
+                        "Microsoft Azure ECC TLS Issuing CA 05"
+                    ]
+                ]
+            ],
+            "expiry_date": "2024-06-27",
+            "RAG_status": "Green"
+        }
+    },
+    "App4": {
+        "https://music.amazon.in": {
+            "issuer": [
+                [
+                    [
+                        "countryName",
+                        "US"
+                    ]
+                ],
+                [
+                    [
+                        "organizationName",
+                        "Amazon"
+                    ]
+                ],
+                [
+                    [
+                        "commonName",
+                        "Amazon RSA 2048 M01"
+                    ]
+                ]
+            ],
+            "expiry_date": "2024-03-07",
+            "RAG_status": "Green"
+        }
+    },
+    "App5": {
+        "https://www.amazon.in": {
+            "issuer": [
+                [
+                    [
+                        "countryName",
+                        "US"
+                    ]
+                ],
+                [
+                    [
+                        "organizationName",
+                        "DigiCert Inc"
+                    ]
+                ],
+                [
+                    [
+                        "commonName",
+                        "DigiCert Global CA G2"
+                    ]
+                ]
+            ],
+            "expiry_date": "2024-06-18",
+            "RAG_status": "Green"
+        }
+    }
+}
