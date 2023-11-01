@@ -1,0 +1,145 @@
+/* Light Theme */
+.light-theme {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Dark Theme */
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Light Theme Toggle */
+.light-theme .theme-toggle .sun-icon {
+    display: block; /* Display the sun icon in light mode */
+}
+
+/* Dark Theme Toggle */
+.dark-theme .theme-toggle .moon-icon {
+    display: block; /* Display the moon icon in dark mode */
+}
+
+
+        /* Custom CSS for footer */
+        .content-container {
+            min-height: calc(100vh - 143px); /* Adjust height as needed */
+            overflow: auto;
+        }
+
+
+/* Header Styles */
+.page-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* Service Name Styles */
+.service-name {
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+/* Footer Styles */
+.page-footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%; /* Utilize the full width of the container */
+}
+
+/* Toggle Button Styles */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Initially set the dark theme (theme-on) to hidden and the light theme (theme-off) to visible */
+.theme-on {
+    visibility: hidden;
+}
+
+.theme-off {
+    visibility: visible;
+}
+
+/* When in dark theme, show the dark theme icon */
+.dark-theme .theme-on {
+    visibility: visible;
+}
+
+/* When in light theme, show the light theme icon */
+.light-theme .theme-off {
+    visibility: hidden;
+}
+
+.theme-icon {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: transparent;
+}
+
+/* Custom CSS styles */
+.dashboard-container {
+    background-color: #f5f5f5;
+    margin-top: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+}
+
+/* Apply background colors for the RAG Status column based on the status */
+table td.RAG-Red {
+    background-color: red;
+    color: white !important; /* Use !important to override other styles */
+}
+
+table td.RAG-Amber {
+    background-color: orange;
+    color: black !important; /* Use !important to override other styles */
+}
+
+table td.RAG-Green {
+    background-color: green;
+    color: black !important; /* Use !important to override other styles */
+}
+
+/* Table Container Styles */
+.table-container {
+    max-height: 70vh; /* Adjust the height as needed */
+    overflow-y: auto;
+    overflow-x: auto; /* Make the table scrollable on the x-axis */
+}
+
+/* Adjust font color for light-themed rows */
+.light-theme table td {
+    color: #333; /* Adjust the color to ensure readability */
+}
+
+/* Adjust font color for dark-themed rows */
+.dark-theme table td {
+    color: #fff; /* Set text color for dark-themed rows */
+}

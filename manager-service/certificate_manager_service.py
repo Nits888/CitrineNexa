@@ -56,12 +56,7 @@ def main():
     with open(config_path, 'r') as file:
         config = json.load(file)
 
-    existing_cert_details = {}  # Initialize as an empty dictionary
-
-    # Check if the results file already exists
-    if os.path.exists(RESULTS_FILE):
-        with open(RESULTS_FILE, 'r') as result_file:
-            existing_cert_details = json.load(result_file)
+    certificates_data = {}  # Initialize as an empty dictionary
 
     for entry in config['endpoints']:
         app_name = entry['app_name']
@@ -71,30 +66,17 @@ def main():
         expiry_date = determine_expiry(cert)
         rag_status = generate_rag_status(expiry_date)
 
-        existing_entry = existing_cert_details.get(app_name, {}).get(endpoint)
+        if app_name not in certificates_data:
+            certificates_data[app_name] = {}
 
-        if existing_entry:
-            # Update existing entry if there are changes
-            if (existing_entry['issuer'] != cert['issuer'] or
-                    existing_entry['expiry_date'] != expiry_date.strftime('%Y-%m-%d') or
-                    existing_entry['RAG_status'] != rag_status):
-                existing_entry.update({
-                    "issuer": cert['issuer'],
-                    "expiry_date": expiry_date.strftime('%Y-%m-%d'),
-                    "RAG_status": rag_status
-                })
-        else:
-            # Create a new entry
-            if app_name not in existing_cert_details:
-                existing_cert_details[app_name] = {}
-            existing_cert_details[app_name][endpoint] = {
-                "issuer": cert['issuer'],
-                "expiry_date": expiry_date.strftime('%Y-%m-%d'),
-                "RAG_status": rag_status
-            }
+        certificates_data[app_name][endpoint] = {
+            "issuer": cert['issuer'],
+            "expiry_date": expiry_date.strftime('%Y-%m-%d'),
+            "RAG_status": rag_status
+        }
 
     with open(RESULTS_FILE, 'w') as file:
-        json.dump(existing_cert_details, file, indent=4)
+        json.dump(certificates_data, file, indent=4)
 
 
 if __name__ == "__main__":

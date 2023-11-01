@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Not Found - 404 Error</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="light-theme"> <!-- Apply the light-theme class for consistency -->
+
+    <div class="container mt-5">
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="C3M Logo" class="mb-3">
+        <h1 class="service-name">Crystal Certs Control & Monitor</h1>
+    </div>
+
+    <div class="container content-container">
+        <h1 class="error-title">404 Error - Page Not Found</h1>
+        <p class="error-message">The page you are looking for could not be found. Please check the URL and try again.</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+        &copy; 2023 CRYSTAL
+    </div>
+
+</body>
+</html>

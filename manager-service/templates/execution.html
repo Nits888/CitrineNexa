@@ -6,68 +6,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-
 <body class="light-theme">
+
     {% if not is_iframe %}
     <div class="container mt-3">
         <div class="page-header text-center">
             <img src="{{ url_for('static', filename='logo.svg') }}" alt="C3M Logo" class="mb-3">
-            <h1 class="service-name">RAG Status Dashboard</h1>
+            <h1 class="service-name">Execution History</h1>
         </div>
     </div>
     {% endif %}
 
-<!-- Update your dashboard-container to occupy available space and have a scrollable table -->
 <div class="container mt-3 content-container">
     <div class="row">
         <div class="col">
             <div class="table-container">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>App Name</th>
-                            <th>Endpoint</th>
-                            <th>Issuer Country</th>
-                            <th>Issuer Organization</th>
-                            <th>Issuer Common Name</th>
-                            <th>Expiry Date</th>
-                            <th>RAG Status</th>
-                        </tr>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Command</th>
+                        <th>Execution Time</th>
+                        <th>Status</th>
+                    </tr>
                     </thead>
-<tbody id="table-body">
-    {% for app_name, endpoints in data.items() %}
-        {% for endpoint, endpoint_data in endpoints.items() %}
-            <tr>
-                <td>{{ app_name }}</td>
-                <td>{{ endpoint }}</td>
-                {% if 'issuer' in endpoint_data %}
-                    <td>{{ endpoint_data['issuer'][0][0][1] }}</td> {# countryName #}
-                    <td>{{ endpoint_data['issuer'][1][0][1] }}</td> {# organizationName #}
-                    <td>{{ endpoint_data['issuer'][2][0][1] }}</td> {# commonName #}
-                {% else %}
-                    <td>undefined</td>
-                    <td>undefined</td>
-                    <td>undefined</td>
-                {% endif %}
-                <td>{{ endpoint_data['expiry_date'] }}</td>
-                <td class="RAG-{{ endpoint_data['RAG_status'] }}">
-                    {{ endpoint_data['RAG_status'] }}
-                </td>
-            </tr>
-        {% endfor %}
-    {% endfor %}
-</tbody>
-
-
-
-                </table>
+                <tbody id="table-body">
+                    {% for entry in data %}
+                        <tr>
+                            <td>{{ entry.name }}</td>
+                            <td>{{ entry.command }}</td>
+                            <td>{{ entry.execution_time }}</td>
+                            <td>{{ entry.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             </div>
         </div>
     </div>
 </div>
 
-
-    <!-- Theme Toggle -->
+ <!-- Theme Toggle -->
     <div class="container mt-3">
         <div class="theme-toggle text-center">
             <svg id="themeToggleIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -79,13 +58,11 @@
         </div>
     </div>
 
-    {% if not is_iframe %}
-    <!-- Footer -->
+{% if not is_iframe %}
     <div class="page-footer">
         &copy; 2023 CRYSTAL
     </div>
-    {% endif %}
-
+{% endif %}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
